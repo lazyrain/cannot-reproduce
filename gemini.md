@@ -228,3 +228,9 @@ Assets/
     * UseCases: `JudgeCardUseCase`, `SpawnCardUseCase`
 * Unityエディタ上でロジックの単体動作確認を実施し、正常動作を確認。
 * `feat(domain): add core entities and use cases` としてコミット。
+* Presentation層の実装に着手。
+    * `CardView.cs` を作成し、ユーザーがUIプレハブを作成。
+    * `GameController.cs` を作成し、ロジックとUIを接続。
+    * ゲーム実行時にカードが1枚表示されることを確認。
+* **課題:** TextMeshProのフォントに日本語が含まれていないため、文字化け（豆腐）が発生。
+* **次のアクション:** 日本語対応フォントアセットを作成し、UIに適用する。
