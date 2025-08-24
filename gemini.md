@@ -218,3 +218,13 @@ Assets/
 * **再現待ち完了**：ここでは“対応を後回しにする”皮肉的ラベルのこと
 * **重要人物**：ゲーム内カテゴリ名。実在の個人/組織は登場しない
 * **フィーバー**：高コンボ時の一時的救済＆爽快演出
+---
+## 開発ログ
+
+### 2025-08-24
+* `feature/core-components` ブランチを作成。
+* Domain層のコアロジックを実装。
+    * Entities: `CardData`, `GameTimer`, `Score`
+    * UseCases: `JudgeCardUseCase`, `SpawnCardUseCase`
+* Unityエディタ上でロジックの単体動作確認を実施し、正常動作を確認。
+* `feat(domain): add core entities and use cases` としてコミット。
