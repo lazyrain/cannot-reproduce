@@ -221,6 +221,14 @@ Assets/
 ---
 ## 開発ログ
 
+### 2025-09-06
+* `feature/add-japanese-font` ブランチを作成。
+* 日本語表示の文字化け（豆腐）問題を解消。
+    * `BIZ UDゴシック` フォントをプロジェクトに追加。
+    * TextMeshProのFont Asset Creatorを使用し、常用漢字を含むフォントアセットを生成。
+    * `CardView`プレハブの各テキストに新しいフォントアセットを適用。
+* `feat(font): add japanese font asset and apply to card view` としてコミット。
+
 ### 2025-08-24
 * `feature/core-components` ブランチを作成。
 * Domain層のコアロジックを実装。
