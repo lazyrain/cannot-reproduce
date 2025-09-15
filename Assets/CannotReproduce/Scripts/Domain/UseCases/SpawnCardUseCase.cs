@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
 using CannotReproduce.Domain.Entities;
+using UnityEngine;
 
 namespace CannotReproduce.Domain.UseCases
 {
     public class SpawnCardUseCase
     {
         private readonly List<CardData> _cardTemplates = new List<CardData>();
-        private readonly Random _random = new Random();
 
         public SpawnCardUseCase()
         {
@@ -25,7 +24,7 @@ namespace CannotReproduce.Domain.UseCases
 
         public CardData Execute()
         {
-            int index = _random.Next(_cardTemplates.Count);
+            int index = Random.Range(0, _cardTemplates.Count);
             return _cardTemplates[index];
         }
     }

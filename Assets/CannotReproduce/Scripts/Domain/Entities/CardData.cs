@@ -10,12 +10,12 @@ namespace CannotReproduce.Domain.Entities
 
     public class CardData
     {
-        public string SenderName;
-        public string Role;
-        public string Organization;
-        public string Contact;
-        public Urgency Urgency;
-        public string Subject;
-        public string Body;
+        public string SenderName { get; set; }
+        public string Role { get; set; }
+        public string Organization { get; set; }
+        public string Contact { get; set; }
+        public Urgency Urgency { get; set; }
+        public string Subject { get; set; }
+        public string Body { get; set; }
     }
 }
