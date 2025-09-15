@@ -189,11 +189,17 @@ Assets/
 *   **Infrastructure -> Domain**: `Infrastructure`層は`Domain`層で定義されたインターフェース（例: `IRepository`）を実装する。
 *   **Domain**: 他のレイヤーに依存しない、純粋なC#コードで記述する。
 
-### DI (Dependency Injection)
+### DI (Dependency Injection) と疎結合
 
-各レイヤー間の依存関係を疎結合に保つため、VContainerやZenjectのようなDIコンテナの導入を推奨します。これにより、テスト容易性の向上も期待できます。
+クラス間の依存関係を疎結合に保つことは、テスト容易性や保守性を高める上で重要です。
 
-（検討の結果、今回のMVP開発では導入を見送ります）
+**基本方針:**
+`MonoBehaviour`が他のクラス（特に`Domain`層のUseCaseなど）を直接`new`キーワードで生成することは原則として避けてください。
+
+**推奨される実装パターン（手動DI）:**
+DIコンテナの導入はプロジェクトの規模に応じて検討しますが、まずは`GameInitializer`のようなシーンに一つだけ存在する初期化用クラス（Composition Root）を用意し、そこで依存オブジェクトを一元的に生成・管理することを推奨します。生成したオブジェクトは、コンストラクタやpublicな初期化メソッド経由で、それを必要とするクラスに渡して（注入して）ください。
+
+この「手動DI」のアプローチにより、大掛かりなフレームワークを導入することなく、疎結合な設計を実現できます。
 
 ---
 
@@ -218,3 +224,27 @@ Assets/
 * **再現待ち完了**：ここでは“対応を後回しにする”皮肉的ラベルのこと
 * **重要人物**：ゲーム内カテゴリ名。実在の個人/組織は登場しない
 * **フィーバー**：高コンボ時の一時的救済＆爽快演出
+---
+## 開発ログ
+
+### 2025-09-06
+* `feature/add-japanese-font` ブランチを作成。
+* 日本語表示の文字化け（豆腐）問題を解消。
+    * `BIZ UDゴシック` フォントをプロジェクトに追加。
+    * TextMeshProのFont Asset Creatorを使用し、常用漢字を含むフォントアセットを生成。
+    * `CardView`プレハブの各テキストに新しいフォントアセットを適用。
+* `feat(font): add japanese font asset and apply to card view` としてコミット。
+
+### 2025-08-24
+* `feature/core-components` ブランチを作成。
+* Domain層のコアロジックを実装。
+    * Entities: `CardData`, `GameTimer`, `Score`
+    * UseCases: `JudgeCardUseCase`, `SpawnCardUseCase`
+* Unityエディタ上でロジックの単体動作確認を実施し、正常動作を確認。
+* `feat(domain): add core entities and use cases` としてコミット。
+* Presentation層の実装に着手。
+    * `CardView.cs` を作成し、ユーザーがUIプレハブを作成。
+    * `GameController.cs` を作成し、ロジックとUIを接続。
+    * ゲーム実行時にカードが1枚表示されることを確認。
+* **課題:** TextMeshProのフォントに日本語が含まれていないため、文字化け（豆腐）が発生。
+* **次のアクション:** MVP範囲に基づき、リザルト画面（スコア、最大コンボ表示）を実装する。
