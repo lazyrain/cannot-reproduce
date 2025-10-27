@@ -64,5 +64,10 @@ namespace CannotReproduce.Presentation.Controllers
             _activeCardView = Instantiate(_cardViewPrefab, _cardSpawnPoint);
             _activeCardView.SetCardData(newCardData);
         }
+
+        private void OnDestroy()
+        {
+            _input.Dispose();
+        }
     }
 }
