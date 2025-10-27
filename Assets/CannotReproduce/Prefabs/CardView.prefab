@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5565153967559278757}
   - component: {fileID: 3902729095771840812}
   m_Layer: 5
-  m_Name: VerticalGropu
+  m_Name: VerticalGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
