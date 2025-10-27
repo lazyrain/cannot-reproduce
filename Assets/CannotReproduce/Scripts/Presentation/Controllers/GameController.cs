@@ -8,13 +8,26 @@ namespace CannotReproduce.Presentation.Controllers
     public class GameController : MonoBehaviour
     {
         [SerializeField] private CardView _cardViewPrefab;
-        [SerializeField] private Transform _cardSpawnPoint; // カードを生成する場所（Canvasの子を想定）
+        [SerializeField] private Transform _cardSpawnPoint;
 
         private SpawnCardUseCase _spawnCardUseCase;
+        private InputSystem_Actions _input;
+        private CardView _activeCardView;
 
         private void Awake()
         {
             _spawnCardUseCase = new SpawnCardUseCase();
+            _input = new InputSystem_Actions();
+        }
+
+        private void OnEnable()
+        {
+            _input.Gameplay.Enable();
+        }
+
+        private void OnDisable()
+        {
+            _input.Gameplay.Disable();
         }
 
         private void Start()
@@ -22,16 +35,39 @@ namespace CannotReproduce.Presentation.Controllers
             SpawnNewCard();
         }
 
+        private void Update()
+        {
+            // カードがない、またはアニメーション中は入力を受け付けない
+            if (_activeCardView == null) return;
+
+            if (_input.Gameplay.SortLeft.WasPressedThisFrame())
+            {
+                HandleSort(false);
+            }
+            else if (_input.Gameplay.SortRight.WasPressedThisFrame())
+            {
+                HandleSort(true);
+            }
+        }
+
+        private void HandleSort(bool isRight)
+        {
+            // アニメーションを開始し、終わったら次のカードを出す
+            _activeCardView.StartSortAnimation(isRight, () => SpawnNewCard());
+            // 連続で入力できないように、参照をnullにする
+            _activeCardView = null;
+        }
+
         private void SpawnNewCard()
         {
-            // 1. ドメイン層からカードデータを取得
             CardData newCardData = _spawnCardUseCase.Execute();
+            _activeCardView = Instantiate(_cardViewPrefab, _cardSpawnPoint);
+            _activeCardView.SetCardData(newCardData);
+        }
 
-            // 2. プレハブからカードUIを生成
-            CardView newCardView = Instantiate(_cardViewPrefab, _cardSpawnPoint);
-            
-            // 3. カードUIにデータを設定して表示
-            newCardView.SetCardData(newCardData);
+        private void OnDestroy()
+        {
+            _input.Dispose();
         }
     }
 }
