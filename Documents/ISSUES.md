@@ -43,7 +43,7 @@
 
 ## #7 技術的負債 (Technical Debt)
 
-- [ ] **手動DIによる疎結合化**:
+- [x] **手動DIによる疎結合化**:
   - **現状**: `Presentation/Controllers/GameController.cs` などで、`Domain/UseCases` のクラスを直接 `new()` でインスタンス化しており、レイヤー間が密結合になっている。
   - **課題**: クラス間の結合度が高いため、単体テストが困難になり、将来の仕様変更時の柔軟性が低い。
   - **対策**: `GameInitializer` のような、シーンの依存関係を管理するクラス（Composition Root）を作成する。そこでUseCases等をインスタンス化し、`GameController`のようなクラスにはコンストラクタや初期化メソッド経由で依存性を注入（手動DI）する設計にリファクタリングする。
