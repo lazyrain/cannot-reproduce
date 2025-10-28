@@ -5,6 +5,9 @@ namespace CannotReproduce.Presentation.Controllers
 {
     public class GameInitializer : MonoBehaviour
     {
+        [SerializeField]
+        private GameController _gameController;
+
         private void Awake()
         {
             // 1. Domain層のUseCaseをインスタンス化
@@ -12,11 +15,10 @@ namespace CannotReproduce.Presentation.Controllers
             // 今後、他のUseCaseもここで生成する
 
             // 2. 依存性を注入する対象のControllerを検索
-            var gameController = FindObjectOfType<GameController>();
-            if (gameController != null)
+            if (_gameController != null)
             {
                 // 3. 依存性を注入
-                gameController.Initialize(spawnCardUseCase);
+                _gameController.Initialize(spawnCardUseCase);
             }
             else
             {
