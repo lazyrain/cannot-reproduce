@@ -227,6 +227,18 @@ DIコンテナの導入はプロジェクトの規模に応じて検討します
 ---
 ## 開発ログ
 
+### 2025-10-29
+* `feature/refactor-di-and-judge-logic` ブランチの作業を分析。
+* 技術的負債とされていた`GameController`と`Domain`層の密結合が、`GameInitializer`の導入による手動DIで解消されていることを確認。
+* `Documents/ISSUES.md`の技術的負債の項目を更新。
+* **課題:**
+    * DIリファクタリングは完了しているが、肝心の正解・不正解の判定ロジックが`GameController`に未実装。
+    * `ISSUES.md`で定義されている、ゲームの状態（タイマー、スコア）を管理する仕組みや、それを表示するUIも未着手。
+* **次のアクション:**
+    * まず、現在のブランチ (`feature/refactor-di-and-judge-logic`) に残っている変更（`GameInitializer.cs`の追加、`GameController.cs`の修正）をコミットする。
+    * 次に、`ISSUES.md`のタスクリストに基づき、`Domain`層にカードの正解・不正解を判定する`JudgeCardUseCase`を実装し、`GameController`から利用する。
+    * 併せて、タイマーとスコアのロジックをゲームループに組み込み、UIに表示する。
+
 ### 2025-09-15
 * `feature/gameplay-loop` ブランチを作成。
 * ゲーム専用のInput Action（SortLeft/Right等）を再定義し、C#クラスを生成。

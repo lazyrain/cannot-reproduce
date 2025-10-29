@@ -16,8 +16,12 @@ namespace CannotReproduce.Presentation.Controllers
 
         private void Awake()
         {
-            _spawnCardUseCase = new SpawnCardUseCase();
             _input = new InputSystem_Actions();
+        }
+
+        public void Initialize(SpawnCardUseCase spawnCardUseCase)
+        {
+            _spawnCardUseCase = spawnCardUseCase;
         }
 
         private void OnEnable()

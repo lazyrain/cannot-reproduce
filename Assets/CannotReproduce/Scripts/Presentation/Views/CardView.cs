@@ -71,7 +71,6 @@ namespace CannotReproduce.Presentation.Views
 
             // アニメーション完了を通知
             onAnimationFinished?.Invoke();
-
             // 自身を破棄
             Destroy(gameObject);
         }
